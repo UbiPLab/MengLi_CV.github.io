@@ -377,3 +377,37 @@ table.imgtable, table.imgtable td {
     border: none;
     text-align: left;
 }
+
+/*正序计数*/
+ul.bracket-list {
+  list-style: none;         /* 仅去掉原生的小圆点 */
+  counter-reset: count;     /* 初始化计数器 */
+}
+
+/* 2. 在每一行前自动加上 [1] */
+ul.bracket-list li {
+  counter-increment: count; /* 计数器自增 */
+}
+
+ul.bracket-list li::before {
+  content: "[" counter(count) "] "; /* 自动填充内容 */
+  font-weight: normal;              /* 确保不加粗 */
+}
+
+/* 统一的倒序列表类 */
+ul.reverse-list {
+  /* 使用变量 --start 定义起始数字，默认为 100 */
+  counter-reset: rev-counter var(--start, 100); 
+  list-style-type: disc; /* 强制显示黑色小圆点 */
+}
+
+ul.reverse-list li {
+  counter-increment: rev-counter -1; /* 每一行减 1 */
+}
+
+ul.reverse-list li::before {
+  /* 在文字前插入 [n] */
+  content: "[" counter(rev-counter) "] "; 
+  font-weight: normal;
+  display: inline;
+}
